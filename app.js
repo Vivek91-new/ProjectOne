@@ -8,7 +8,7 @@ const server = http.createServer((req, res) => {
     });
 
     res.end(`
-        <h1> abcdefghijklmnop</h1>
+        <h1> This DEV env 1</h1>
         <p>Application deployed using GitHub Actions → AWS EC2</p>
     `);
 });
