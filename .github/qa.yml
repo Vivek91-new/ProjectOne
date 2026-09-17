@@ -1,0 +1,24 @@
+name: Deploy QA
+
+on:
+  push:
+    branches:
+      - qa
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to QA EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.QA_HOST }}
+          username: ubuntu
+          key: ${{ secrets.QA_SSH_KEY }}
+          script: |
+            cd ~/my-project
+            git checkout qa
+            git pull origin qa
+            npm install
+            pm2 restart myapp || pm2 start app.js --name myapp
+            pm2 save
